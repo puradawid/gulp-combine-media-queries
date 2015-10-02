@@ -68,7 +68,7 @@ module.exports = function(options) {
   // Check rule type
   var commentOrRule = function(rule) {
     var strCss = '';
-    if (rule.type === 'rule') {
+    if (rule.type === 'rule' || rule.type === 'page') {
       strCss += processRule(rule);
     } else if (rule.type === 'comment') {
       strCss += processComment(rule) + '\n\n';
@@ -195,7 +195,7 @@ module.exports = function(options) {
 
         // Push every merged query
         rule.rules.forEach(function(mediaRule) {
-          if (mediaRule.type === 'rule' || 'comment') {
+          if (mediaRule.type === 'rule' || mediaRule.type === 'comment' || mediaRule.type === 'page') {
             processedCSS.media[i].rules.push(mediaRule);
           }
         });
@@ -203,7 +203,7 @@ module.exports = function(options) {
       } else if (rule.type === 'keyframes') {
         processedCSS.keyframes.push(rule);
 
-      } else if (rule.type === 'rule' || 'comment' || 'page') {
+      } else if (rule.type === 'rule' || rule.type === 'comment' || rule.type === 'page') {
         processedCSS.base.push(rule);
       }
     });
