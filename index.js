@@ -56,6 +56,7 @@ module.exports = function(options) {
   // Process normal CSS rule
   var processRule = function(rule) {
     var strCss = '';
+    strCss += rule.type === 'page' ? '@page' : '';
     strCss += rule.selectors.join(',\n') + ' {';
     rule.declarations.forEach(function(rules) {
       strCss += commentOrDeclaration(rules);
@@ -202,7 +203,7 @@ module.exports = function(options) {
       } else if (rule.type === 'keyframes') {
         processedCSS.keyframes.push(rule);
 
-      } else if (rule.type === 'rule' || 'comment') {
+      } else if (rule.type === 'rule' || 'comment' || 'page') {
         processedCSS.base.push(rule);
       }
     });
